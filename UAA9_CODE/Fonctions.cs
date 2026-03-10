@@ -50,5 +50,39 @@ namespace UAA9_CODE
                 Console.WriteLine(domino);
             }
         }
+
+        /// <summary>
+        /// Distribue les dominos entre les joueurs
+        /// </summary>
+        /// <param name="tableauDominos">Tableau de dominos mélangés</param>
+        /// <param name="nombreJoueurs">Nombre de joueurs (2-4)</param>
+        public static void distributionCartes(string[] tableauDominos, int nombreJoueurs)
+        {
+            if (nombreJoueurs < 2 || nombreJoueurs > 4)
+            {
+                Console.WriteLine("Le nombre de joueurs doit être entre 2 et 4");
+                return;
+            }
+
+            int dominosParJoueur = tableauDominos.Length / nombreJoueurs;
+            int reste = tableauDominos.Length % nombreJoueurs;
+
+            Console.WriteLine("\n=== Distribution pour " + nombreJoueurs + " joueurs ===\n");
+
+            int index = 0;
+            for (int joueur = 1; joueur <= nombreJoueurs; joueur++)
+            {
+                int nombreDominos = dominosParJoueur + (joueur <= reste ? 1 : 0);
+
+                Console.WriteLine("Joueur " + joueur + " (" + nombreDominos + " dominos) :");
+
+                for (int i = 0; i < nombreDominos; i++)
+                {
+                    Console.Write(tableauDominos[index] + " ");
+                    index++;
+                }
+                Console.WriteLine("\n");
+            }
+        }
     }
 }
