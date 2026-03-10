@@ -1,6 +1,6 @@
 # 🎲 UAA9_Dominos_TasnierMarcel
 
-![Logo du projet](https://upload.wikimedia.org/wikipedia/commons/6/6e/Domino_tiles_set.jpg)
+![Logo du projet](https://www.agoralude.com/img/cms/images/dominos-bon2-min.jpg)
 
 > Code du projet de l'UAA9 (examen) – Jeu de dominos en C#
 
