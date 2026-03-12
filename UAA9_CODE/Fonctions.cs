@@ -43,45 +43,38 @@ namespace UAA9_CODE
         }
 
         /// <summary>
-        /// Distribue les dominos entre les joueurs
+        /// Distribue les dominos entre les joueurs avec pseudos
         /// </summary>
-        public static void distributionCartes(string[] tableauDominos, int nombreJoueurs)
+        public static void distributionCartes(string[] tableauDominos, string pseudoJoueur, string[] pseudosRobots)
         {
-            if (nombreJoueurs < 2 || nombreJoueurs > 4)
-            {
-                Console.WriteLine("Le nombre de joueurs doit être entre 2 et 4");
-                return;
-            }
-
-            int dominosParJoueur;
-
-            // Nombre de dominos par joueur selon la règle classique
-            if (nombreJoueurs == 2)
-                dominosParJoueur = 7;
-            else
-                dominosParJoueur = 6;
+            int nombreJoueurs = pseudosRobots.Length + 1;
+            int dominosParJoueur = (nombreJoueurs == 2) ? 7 : 6;
 
             int index = 0;
 
             Console.WriteLine("\n=== Distribution des dominos ===\n");
 
-            for (int joueur = 1; joueur <= nombreJoueurs; joueur++)
+            // Joueur humain
+            Console.WriteLine(pseudoJoueur + " (" + dominosParJoueur + " dominos) :");
+            for (int i = 0; i < dominosParJoueur; i++)
             {
-                if (joueur == 1)
-                    Console.WriteLine("Joueur humain (" + dominosParJoueur + " dominos) :");
-                else
-                    Console.WriteLine("Robot " + (joueur - 1) + " (" + dominosParJoueur + " dominos) :");
+                Console.Write(tableauDominos[index] + " ");
+                index++;
+            }
+            Console.WriteLine("\n");
 
+            // Robots
+            for (int j = 0; j < pseudosRobots.Length; j++)
+            {
+                Console.WriteLine("ROBOTO | " + pseudosRobots[j] + " (" + dominosParJoueur + " dominos) :");
                 for (int i = 0; i < dominosParJoueur; i++)
                 {
                     Console.Write(tableauDominos[index] + " ");
                     index++;
                 }
-
                 Console.WriteLine("\n");
             }
 
-            // Affiche le talon restant
             int talonRestant = tableauDominos.Length - index;
             Console.WriteLine("Dominos restants dans le talon : " + talonRestant + "\n");
         }
