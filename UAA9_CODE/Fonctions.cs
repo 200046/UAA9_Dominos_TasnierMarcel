@@ -5,11 +5,11 @@ namespace UAA9_CODE
     internal class Fonctions
     {
         /// <summary>
-        /// Creation du talon de dominos
+        /// Création du talon de dominos
         /// </summary>
-        public static void creationTalon()
+        public static string[] creationTalon()
         {
-            string[] tableauDominos = new string[28]; // Il y a 28 dominos dans un jeu standard
+            string[] tableauDominos = new string[28];
             int compteurDomino = 0;
 
             for (int pointsFaceA = 0; pointsFaceA <= 6; pointsFaceA++)
@@ -21,41 +21,30 @@ namespace UAA9_CODE
                     compteurDomino++;
                 }
             }
+
+            return tableauDominos;
         }
 
         /// <summary>
         /// Mélange aléatoire
         /// </summary>
-        public static void melangeAleatoire()
+        public static void melangeAleatoire(string[] tableauDominos)
         {
-            string[] tableauDominos = new string[28]; // Il y a 28 dominos dans un jeu standard
-            int compteurDomino = 0;
-            // Mélange aléatoire
             Random random = new Random();
 
             for (int i = 0; i < tableauDominos.Length; i++)
             {
                 int indexAleatoire = random.Next(i, tableauDominos.Length);
 
-                // Échange des valeurs
                 string temp = tableauDominos[i];
                 tableauDominos[i] = tableauDominos[indexAleatoire];
                 tableauDominos[indexAleatoire] = temp;
-            }
-
-            // Affichage après mélange
-            Console.WriteLine("Dominos mélangés :");
-            foreach (string domino in tableauDominos)
-            {
-                Console.WriteLine(domino);
             }
         }
 
         /// <summary>
         /// Distribue les dominos entre les joueurs
         /// </summary>
-        /// <param name="tableauDominos">Tableau de dominos mélangés</param>
-        /// <param name="nombreJoueurs">Nombre de joueurs (2-4)</param>
         public static void distributionCartes(string[] tableauDominos, int nombreJoueurs)
         {
             if (nombreJoueurs < 2 || nombreJoueurs > 4)
@@ -64,25 +53,37 @@ namespace UAA9_CODE
                 return;
             }
 
-            int dominosParJoueur = tableauDominos.Length / nombreJoueurs;
-            int reste = tableauDominos.Length % nombreJoueurs;
+            int dominosParJoueur;
 
-            Console.WriteLine("\n=== Distribution pour " + nombreJoueurs + " joueurs ===\n");
+            // Nombre de dominos par joueur selon la règle classique
+            if (nombreJoueurs == 2)
+                dominosParJoueur = 7;
+            else
+                dominosParJoueur = 6;
 
             int index = 0;
+
+            Console.WriteLine("\n=== Distribution des dominos ===\n");
+
             for (int joueur = 1; joueur <= nombreJoueurs; joueur++)
             {
-                int nombreDominos = dominosParJoueur + (joueur <= reste ? 1 : 0);
+                if (joueur == 1)
+                    Console.WriteLine("Joueur humain (" + dominosParJoueur + " dominos) :");
+                else
+                    Console.WriteLine("Robot " + (joueur - 1) + " (" + dominosParJoueur + " dominos) :");
 
-                Console.WriteLine("Joueur " + joueur + " (" + nombreDominos + " dominos) :");
-
-                for (int i = 0; i < nombreDominos; i++)
+                for (int i = 0; i < dominosParJoueur; i++)
                 {
                     Console.Write(tableauDominos[index] + " ");
                     index++;
                 }
+
                 Console.WriteLine("\n");
             }
+
+            // Affiche le talon restant
+            int talonRestant = tableauDominos.Length - index;
+            Console.WriteLine("Dominos restants dans le talon : " + talonRestant + "\n");
         }
     }
 }
